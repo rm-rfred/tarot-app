@@ -1,13 +1,9 @@
-FROM node:19.4.0-alpine
+FROM node:18.12.1
+
+ENV GENERATE_SOURCEMAP=false \
+    WDS_SOCKET_PORT=10131
 
 WORKDIR /app
 
-COPY package.json .
-
-RUN npm install
-
-COPY . .
-
-EXPOSE 3000
-
-CMD ["npm", "start"]
+COPY entrypoint.sh /entrypoint.sh
+ENTRYPOINT [ "/entrypoint.sh" ]

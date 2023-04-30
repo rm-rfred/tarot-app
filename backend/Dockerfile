@@ -1,28 +1,20 @@
 FROM python:3.9
 
-RUN addgroup --system app && adduser --system --group app
+ENV DEBIAN_FRONTEND noninteractive
+ENV PYTHONPATH .
 
-WORKDIR /app/
+WORKDIR /app
 
-RUN python -m pip install --upgrade pip
+ENV PYTHONDONTWRITEBYTECODE 1 
 
-ENV PYTHONDONTWRITEBYTECODE 1
+RUN python3.9 -m pip install --no-cache-dir --upgrade pip==23.1.2
 
-ENV PYTHONUNBUFFERED 1
-ENV ENVIRONMENT prod
-ENV TESTING 0
+COPY ./requirements.txt /requirements.txt
 
-COPY ./app/requirements.txt /app/
+RUN python3.9 -m pip install --no-cache-dir -r /requirements.txt
 
-RUN pip install -r requirements.txt
+ENV API_ENV DEV
 
-COPY ./app /app
-RUN chmod +x entrypoint.sh
+COPY ./entrypoint.sh /entrypoint.sh
 
-ENV PYTHONPATH=/app
-
-RUN chown -R app:app $HOME
-
-USER app
-
-CMD ["./entrypoint.sh"]
+CMD [ "/entrypoint.sh" ]
