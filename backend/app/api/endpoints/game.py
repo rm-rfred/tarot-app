@@ -17,10 +17,3 @@ def create_game(index: str):
         verify_certs=None
     )
     return es.indices.create(index="tarot_games")
-
-    # client_cert="/certs/ca/admin.pem",
-    # client_key="/certs/ca/admin.key",
-    # verify_certs=True,
-    # ssl_assert_hostname=False,
-    # ssl_show_warn=True,
-    # ca_certs="/certs/ca/admin.pem"
