@@ -7,7 +7,7 @@ WORKDIR /app
 
 ENV PYTHONDONTWRITEBYTECODE 1 
 
-RUN python3.9 -m pip install --no-cache-dir --upgrade pip==23.1.2
+RUN python3.9 -m pip install --no-cache-dir --upgrade pip==23.2.1
 
 COPY ./requirements.txt /requirements.txt
 
